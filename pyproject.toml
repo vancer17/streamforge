@@ -1,0 +1,77 @@
+[project]
+name = "streamforge"
+version = "0.1.0"
+description = "StreamForge - DeepStream/GStreamer pipeline runtime with FastAPI control plane for Kubernetes workers"
+readme = "README.md"
+requires-python = ">=3.10,<3.11"
+license = { file = "LICENSE" }
+authors = [
+    { name = "StreamForge Contributors" },
+]
+keywords = ["deepstream", "gstreamer", "video-analytics", "fastapi", "kubernetes"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Multimedia :: Video",
+    "Framework :: FastAPI",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+]
+dependencies = [
+    "fastapi>=0.115.0,<1.0.0",
+    "uvicorn[standard]==0.40.0",
+    "pydantic==2.12.5",
+    "pydantic-settings==2.12.0",
+    "python-dotenv==1.2.1",
+    "colorlog==6.10.1",
+    "pyyaml==6.0.3",
+]
+
+[project.scripts]
+streamforge = "streamforge.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/vancer17/streamforge"
+Repository = "https://github.com/vancer17/streamforge"
+Documentation = "https://github.com/vancer17/streamforge#readme"
+Issues = "https://github.com/vancer17/streamforge/issues"
+
+[build-system]
+requires = ["uv_build>=0.11.15,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "httpx==0.28.1",
+    "mypy>=1.13.0",
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "ruff>=0.8.0",
+]
+
+[tool.uv]
+package = true
+
+[tool.uv.build-backend]
+module-name = "streamforge"
+module-root = "src"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.10"
+packages = ["streamforge"]
+mypy_path = "src"
+ignore_missing_imports = true
